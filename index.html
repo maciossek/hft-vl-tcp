@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>HFT IPR TCP + HTTP</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/atom-one-dark.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-size="cover" data-background-image="https://media.giphy.com/media/9J7tdYltWyXIY/giphy.gif">
+          <h2 class="title">Internetprogrammierung</h2>
+          <h3 class="title">TCP + HTTP + Netzwerke</h3>
+        </section>
+        <section>
+          <section>
+            <h3 class="text--bg">Aktuelles</h3>
+          </section>
+          <section>
+            Netzneutralität kann man kaufen: Provider reiben sich schon die Hände!
+            <br/><sup style="font-size: 0.7rem">http://t3n.de/news/netzneutralitaet-telekom-kuendigt-ueberholspuren-an-652160/</sup>
+          </section>
+          <section>
+            Das Safe-Harbor-Abkommen ist vorerst Geschichte. Safe Harbor hatte seit Sommer 2000 dafür gesorgt, dass Unternehmen aus den USA – wie Amazon, Google, Facebook oder Dropbox – personenbezogene Daten aus der EU in die USA übermitteln können.
+            <br/><sup style="font-size: 0.7rem">http://t3n.de/news/safe-harbour-eugh-urteil-645897/</sup>
+          </section>
+
+        </section>
+        <section>
+          <section data-markdown>
+            ### Was ist eigentlich…
+          </section>
+          <section data-markdown>
+            ### Bandbreite
+          </section>
+          <section data-markdown>
+            ### Latenz
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            ### Etwas Geschichte
+          </section>
+          <section>
+            <small class="text--bg">1958: Gründung der DARPA (Defense Advanced Research Projects Agency) innerhalb des US-Verteidigungsministeriums (Stand 2012: 240 MAs; 2,8 Mrd.$ Budget!)</small>
+						<img src="https://personalpages.manchester.ac.uk/staff/m.dodge/cybergeography/atlas/arpanet3.gif" />
+          </section>
+          <section class="text-info">
+            <small class="text--bg">1969: Start des ARPANET (einem Kontrakt mit der Fa. BBN Technologies) -- einem Netz mit 4 Knoten (UC of Los Angeles, UC Santa Barbara, Stanford Research Institute, Univ of Utah und später der Ostküste mit Harvard, BBN).Ziel war die Entwicklung eines Netzes zum elektronischen Datenaustausch, welches auch einen atomaren Erstschlag überleben würde!</small>
+						<img src="https://personalpages.manchester.ac.uk/staff/m.dodge/cybergeography/atlas/arpanet3.gif" />
+          </section>
+          <section>
+            <small class="text--bg">1974: Vinton Cerf, Robert Kahn: „A Protocol for Packet Network Interconnection“</small>
+						<img src="https://personalpages.manchester.ac.uk/staff/m.dodge/cybergeography/atlas/arpanet4.gif" />
+          </section>
+          <section>
+            <small class="text--bg">1974-81: Erste Spezifikation von TCP/IP</small>
+            <img src="https://personalpages.manchester.ac.uk/staff/m.dodge/cybergeography/atlas/arpanet4.gif" />
+          </section>
+          <section>
+            <small class="text--bg">1976: Bob Metcalfe (Xerox Parc): Ethernet Netzwerkkarte und Router mit 1500 Byte Paketen und erweiterbarem Hardwareprotokoll</small>
+            <img src="https://personalpages.manchester.ac.uk/staff/m.dodge/cybergeography/atlas/arpanet4.gif" />
+          </section>
+          <section>
+            <small class="text--bg">1983: Umstellung des ARPANET von NCP auf TCP/IP am 1. Januar. Netzwerkdienste des Berkeley-Unix (BSD 4.2) z.B. FTP, Telnet Militärnetz MILNET spaltet sich von ARPANET ab.</small>
+            <img src="http://ftp.isc.org/www/survey/reports/current/hosts.png" />
+          </section>
+          <section>
+            <small class="text--bg">1989: Internetanschluss Deutschlands (Unis wie z.B. Karlsruhe: www.ira.uka.de) nun schon 100.000 Hosts im Internet</small>
+            <img src="http://ftp.isc.org/www/survey/reports/current/hosts.png" />
+          </section>
+          <section>
+            <small class="text--bg">1990: Tim Berners-Lee erfindet am CERN das Hypertext Transfer Protocol (HTTP) und das Hypertext Markup Language (HTML) zum Austausch von menschen- und maschinenlesbaren Textseiten für das World-Wide Web (WWW)</small>
+            <img src="https://media.giphy.com/media/IwTWTsUzmIicM/giphy.gif" />
+          </section>
+          <section>
+            <small class="text--bg">1992: Erster textbasierter WWW-Browser Lynx und die erste Web-Seite </small>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Lynx-wikipedia.png" />
+          </section>
+          <section>
+            <small class="text--bg">1993: erster graphischer Web-Browser Mosaic, entwickelt am National Center for Supercomputing Applications (NCSA), Entwicklungsleiter Marc Andreesen Der spätere Netscape Browser (und Urvater von Mozilla Firefox!)</small>
+            <img src="https://www.wired.com/images_blogs/thisdayintech/2010/04/mos-10.jpg" />
+          </section>
+          <section>
+            <small class="text--bg">1994: Das CERN und MIT gründen das World Wide Web Consortium (W3C)</small>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2000px-W3C%C2%AE_Icon.svg.png" />
+          </section>
+          <section>
+            <small class="text--bg">1998: Jedes Land der Erde ist mit dem Internet verbunden. Neuer IP-Standard: IPv6</small>
+          </section>
+          <section>
+            <small class="text--bg">1998: Larry Page und Sergey Brin (zwei Studenten aus Stanford) gründen Google  <br/>
+            Ziel ist: Benutzerfreundliche Services zur Suche & Finden von Informationen  <br/>
+            Erste Anwendung: Google-Suche basierend auf dem Page-Rank Algorithmus</small>
+            <img style="border: 0" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2000px-Google_2015_logo.svg.png" />
+          </section>
+          <section>
+            <small class="text--bg">Entwicklung Breitbandanschlüsse und Backbones</small>
+            <img src="http://news.bbc.co.uk/nol/shared/bsp/hi/image_sliders/09/broadband_cable_sequence/img/planned.gif"/>
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            ## Was ist ein Protokoll?
+          </section>
+          <section data-markdown>
+            > Ein Protokoll ist eine exakte Vereinbarung, nach der Daten zwischen Computern bzw. Prozessen ausgetauscht werden, die (durch ein Netz) miteinander verbunden sind.
+          </section>
+          <section>
+            <h3>ISO/OSI 7-Schichtenmodell</h3>
+            <img src="./images/isoosi.png" />
+            <small>https://de.wikipedia.org/wiki/OSI-Modell</small>
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            ## Was ist eine URL?
+          </section>
+          <section data-markdown>
+            ### Uniform Resource Locator
+
+            ```
+            [Prot://][user[:pwd]@]example.org[:Port][dir/file[#frag]]
+
+            []: Optionale Teile der URL
+            Prot  Protokoll, bspw. http:// oder ftp://
+            user  Der Username, wenn notwendig, bspw. bei FTP
+            pwd Das Passwort... Was ist daran schlecht?
+            Port  Der Netzwerkport (eine Zahl), bei HTTP Port 80
+            dir Ein Unterverzeichnis, bspw. /tmp/
+            file  Eine Datei (default: index.html)
+            frag  Ein „Fragment“, bspw. ein Anker einer Webpage
+            ```
+          </section>
+          <section data-markdown>
+            ### Uniform Resource Locator
+
+            ```
+            http://my:secret@4.4.4.4:8080/~my_user/idx2.html
+            ```
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            ## Was ist ein Webserver?
+          </section>
+          <section data-markdown>
+            > Ein Computerprogramm, das auf HTTP Anfragen mit HTTP antwortet
+          </section>
+          <section data-markdown>
+            ### Bekannte Software
+            - Nginx
+            - Apache
+            - Microsoft IIS
+          </section>
+          <section data-markdown>
+            ### Features
+            - Plugins, wie z.B. PHP engine
+            - Virtual Hosts
+            - Reverse Proxy
+            - Load Balancing
+            - Compression
+            - URL Rewriting
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            ## Was ist ein Browser?
+          </section>
+          <section data-markdown>
+            > Ein Computerprogramm, das HTTP Anfragen an Websever sendet, sowie HTML, CSS und JavaScript intepretiert
+          </section>
+          <section data-markdown>
+            ### Layout Engines
+
+            - Gecko von Mozilla im Firefox,
+            - Tasman von Microsoft für Internet Explorer 5 auf Mac OS
+            - Presto für den Opera (aber aufgegeben für Blink! s.u.)
+            - KHTML von KDE für den Konqueror
+            - WebKit, ein Fork von KHTML von Apple für Mac OS Safari
+            - Blink, ein Fork von WebKit von Google für Chrome und Opera Browser.
+          </section>
+        </section>
+        <section>
+          <section data-markdown>
+            ## Was ist Webdevelopment?
+          </section>
+          <section data-markdown>
+            - Client-side, Frontend
+            - Server-side, Backend
+            - Datenbanken
+          </section>
+          <section data-markdown>
+            ### Frontend
+            - HTML
+            - CSS / SASS / LESS
+            - JavaScript (mit JQuery)
+            - Frameworks: AngularJS, React, Vue.js
+          </section>
+          <section data-markdown>
+            ### Backend
+            - ASP.NET
+            - Java (EE)
+            - PHP
+            - JavaScript (NodeJS)
+            - Ruby (Rails)
+            - Python (Django)
+          </section>
+          <section data-markdown>
+            ### Datenbanken
+            - MySQL
+            - PostreSQL
+            - Oracle
+            - MongoDB
+            - Neo4j
+          </section>
+        </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			Reveal.initialize({
+        slideNumber: true,
+				backgroundTransition: 'slide',
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
+transition
